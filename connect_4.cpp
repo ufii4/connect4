@@ -59,6 +59,7 @@ void startTheGame() {
 				}
 			}
 		} else {
+// 			Bug fixed: Entering a column that is not on the board
 			std::cout << "Please enter a valid column!" << std::endl
 					<< "Resume? (y, n)";
 			bool resume;
@@ -76,6 +77,7 @@ void startTheGame() {
 	std::cout << "Game over!";
 }
 
+//	Print the current board to the console
 void printBoard(char board[6][7]) {
 	std::cout << 0 << ' ' << 1 << ' ' << 2 << ' ' << 3 << ' ' << 4 << ' ' << 5
 			<< ' ' << 6 << ' ' << std::endl;
@@ -87,25 +89,30 @@ void printBoard(char board[6][7]) {
 	}
 }
 
+//	Ask for player input
 void askForOperation(int &col, char player) {
 	std::cout << "Turn: " << player << std::endl << "Enter a col: ";
 	std::cin >> col;
 	std::cout << std::endl;
 }
 
+
 char* fitInTheMove(char board[6][7], int col, char player) {
 	int k = 6;
 	while (board[k][col] != '_') {
 		k--;
 	}
+// 	Bug fixed: Adding a move to the column that is full
 	if (k < 0) {
 		std::cout << "The board is too small :)" << std::endl;
 		return *board;
 	}
+	
 	board[k][col] = player;
 	return *board;
 }
 
+//	Check if there is a winner and if the board is full
 bool checkWinStatus(char board[6][7], char &p_winner) {
 	char dir;
 	for (int col = 0; col < 4; col++) {
@@ -170,6 +177,7 @@ bool checkWinStatus(char board[6][7], char &p_winner) {
 	return true;
 }
 
+//	Mark the row that ends the game
 void markWinnerRow(char *p_start, char dir) {
 	if (dir == 'f') {
 		for (int i = 0; i < 4; i++) {
@@ -197,6 +205,7 @@ void markWinnerRow(char *p_start, char dir) {
 	}
 }
 
+// 	Fill the board with empty signs
 void initializeBoard(char (&board)[6][7]) {
 	for (int col = 0; col < 7; col++) {
 		for (int row = 0; row < 6; row++) {
