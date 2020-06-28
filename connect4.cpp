@@ -104,9 +104,10 @@ void askForOperation(int &col, char player) {
 }
 
 
-char *fitInTheMove(char board[6][7], int col, char player, int* turn) {
+char *fitInTheMove(char board[6][7], int col, char player, int *turn) {
     int k = 6;
-    while (board[k][col] != '_') {
+//    Bug fixed: Stack overflow
+    while (board[k][col] != '_' && k >= 0) {
         k--;
     }
 // 	Bug fixed: Adding a move to the column that is full
